@@ -7,25 +7,20 @@ class TextFormFieldsDisplay extends StatefulWidget {
 }
 
 class _TextFormFieldsDisplayState extends State<TextFormFieldsDisplay> {
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _phoneController = TextEditingController();
+  TextEditingController _workoutController = TextEditingController();
   TextEditingController _controller = TextEditingController();
   TextEditingController _controllerTime = TextEditingController();
-  double _progress = 0;
+  double _burnedcals = 0;
   double _time = 0;
 
   List<String> _formValues = [];
 
   void _submitForm() {
     setState(() {
-      //_formValues.clear();
-      _formValues.add('Name: ${_nameController.text}');
-      _formValues.add('Email: ${_emailController.text}');
-      _formValues.add('Phone: ${_phoneController.text}');
-      double _progresss = double.tryParse(_controller.text) ?? 0;
-      _progress += _progresss;
-      _formValues.add('Calories: ${_progresss}');
+      _formValues.add('Name: ${_workoutController.text}');
+      double _burneddcals = double.tryParse(_controller.text) ?? 0;
+      _burnedcals += _burneddcals;
+      _formValues.add('Calories: ${_burneddcals}');
       double _timee = double.tryParse(_controllerTime.text) ?? 0;
       _time += _timee;
       _formValues.add('Workout Time: ${_timee}');
@@ -33,23 +28,7 @@ class _TextFormFieldsDisplayState extends State<TextFormFieldsDisplay> {
     });
   }
   
-/*
-  void initState() {
-    super.initState();
-    _progress = 0/1000;
-  }*/
-/*
-  void _updateProgress() {
-    setState(() {
-      _progress = double.tryParse(_controller.text) ?? 0.0;
-      if (_progress > 1000) {
-        _progress = 1000;
-      } else if (_progress < 0.0) {
-        _progress = 0.0;
-      }
-    });
-  }
-*/
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,27 +41,21 @@ class _TextFormFieldsDisplayState extends State<TextFormFieldsDisplay> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             TextFormField(
-              controller: _nameController,
-              decoration: InputDecoration(labelText: 'Enter Name'),
-            ),
-            TextFormField(
-              controller: _emailController,
-              decoration: InputDecoration(labelText: 'Enter Email'),
-            ),
-            TextFormField(
-              controller: _phoneController,
-              decoration: InputDecoration(labelText: 'Enter Phone'),
+              controller: _workoutController,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+              decoration: InputDecoration(labelText: 'Enter Workout Name'),
+              
             ),
             TextFormField(
               controller: _controller,
               keyboardType: TextInputType.numberWithOptions(decimal: true),
-              decoration: InputDecoration(labelText: 'Enter Calories'),
+              decoration: InputDecoration(labelText: 'Enter Expected Calories to Burn'),
               
             ),
             TextFormField(
               controller: _controllerTime,
               keyboardType: TextInputType.numberWithOptions(decimal: true),
-              decoration: InputDecoration(labelText: 'Enter Time'),
+              decoration: InputDecoration(labelText: 'Enter Time You Expect to Take in Minutes'),
               
             ),
             SizedBox(height: 20.0),
@@ -110,7 +83,7 @@ class _TextFormFieldsDisplayState extends State<TextFormFieldsDisplay> {
             children: <Widget>[
               SizedBox(
             child: CircularProgressIndicator(
-              value: _progress / 2500,
+              value: _burnedcals / 2500,
               strokeWidth: 10,
             ),
             height: 80,
@@ -134,7 +107,7 @@ class _TextFormFieldsDisplayState extends State<TextFormFieldsDisplay> {
             ]
             ),
             SizedBox(height: 16,),
-            Text('Calories: ${(_progress)}kg',
+            Text('Calories: ${(_burnedcals)}kg',
             style: TextStyle(fontSize: 20),
             ),
             Text('Time it takes: ${(_time)}min',
@@ -148,9 +121,7 @@ class _TextFormFieldsDisplayState extends State<TextFormFieldsDisplay> {
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _emailController.dispose();
-    _phoneController.dispose();
+    _workoutController.dispose();
     _controller.dispose();
     _controllerTime.dispose();
     super.dispose();
